@@ -61,24 +61,16 @@ func main(){
 }
 
 
-
-
-
-
 func showEntries(){
-    if len(currentDir.Directories) != 0{
-        fmt.Println("--Dirs--")
-        for name := range currentDir.Directories{
-            fmt.Println(name + "/")
-        }
+    for name := range currentDir.Directories{
+        fmt.Println(name + "/")
+    }
 
+
+    for name := range currentDir.Files{
+        fmt.Println(name)
     }
-    if len(currentDir.Files) != 0{
-        fmt.Println("--Files--")
-        for name := range currentDir.Files{
-            fmt.Println(name)
-        }
-    }
+
 }
 
 
@@ -94,12 +86,15 @@ func pwd(){
 }
 
 func changeDir(path string){
-    
-    dir, ok := currentDir.Directories[path]
     if path == ".."{
         length := len(paths)
-        currentDir = paths[length-2]
+        currentDir = paths[length - 2]
+        paths = paths[0:len(paths) - 1]
+        return
     }
+    
+    dir, ok := currentDir.Directories[path]
+
     if !ok{
         fmt.Println("Dir doesn't exit")
         return
@@ -107,8 +102,6 @@ func changeDir(path string){
     paths = append(paths, dir) 
     currentDir = dir
 }
-
-
 
 
 
