@@ -41,3 +41,21 @@ func changeDir(path string) {
 	paths = append(paths, dir)
 	currentDir = dir
 }
+
+func echo(filename, text string) {
+	file, ok := currentDir.Files[filename]
+	if !ok {
+		fmt.Println("File doesn't exist")
+		return
+	}
+	file.Content = fmt.Sprintf("%s\n%s", file.Content, text)
+}
+
+func cat(filename string) {
+	file, ok := currentDir.Files[filename]
+	if !ok {
+		fmt.Println("file doesn't exist")
+		return
+	}
+	fmt.Println(file.Content)
+}

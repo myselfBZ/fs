@@ -54,6 +54,10 @@ func main() {
 			} else {
 				currentDir.CreateFile(tokens[1])
 			}
+		case "echo":
+			echo(tokens[1], tokens[2])
+		case "cat":
+			cat(tokens[1])
 		default:
 			fmt.Println("Command not found")
 		}
