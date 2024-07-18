@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func showEntries() {
 	for name := range currentDir.Directories {
@@ -15,7 +18,7 @@ func showEntries() {
 
 func pwd() {
 	var path string
-	for _, dir := range paths {
+	for _, dir := range paths.dirs {
 		path += dir.Name
 		if dir.Name != "/" {
 			path += "/"
@@ -25,21 +28,23 @@ func pwd() {
 }
 
 func changeDir(path string) {
-	if path == ".." {
-		length := len(paths)
-		currentDir = paths[length-2]
-		paths = paths[0 : len(paths)-1]
-		return
-	}
-
-	dir, ok := currentDir.Directories[path]
-
-	if !ok {
-		fmt.Println("Dir doesn't exit")
-		return
-	}
-	paths = append(paths, dir)
-	currentDir = dir
+    newPath := strings.Split(path, "/")
+    for _, path := range newPath{
+        if path == ".."{
+            err := paths.Pop() 
+            if err != nil{
+                fmt.Println("You are in the root dir")
+            }
+        } else{
+            dir, ok := currentDir.Directories[path]
+            if !ok{
+                fmt.Println(DirDoesntExist)
+                return 
+            } 
+            currentDir = dir
+            
+        }
+    }
 }
 
 func echo(filename, text string) {
