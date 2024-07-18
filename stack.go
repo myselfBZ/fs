@@ -1,9 +1,13 @@
 package main
 
-import "errors"
+import (
+	"errors"
+
+	"github.com/myselfBZ/fs/entries"
+)
 
 type Stack struct{
-    elements []string
+    dirs []entries.Directory
 }
 
 var (
@@ -11,14 +15,14 @@ var (
 )
 
 
-func (s *Stack) Append(e string)  {
-    s.elements = append(s.elements, e)
+func (s *Stack) Append(d entries.Directory)  {
+    s.dirs = append(s.dirs, d)
 }
 
 func (s *Stack) Pop() error {
-    if len(s.elements) == 0{
+    if len(s.dirs) == 0{
         return Empty 
     }
-    s.elements = s.elements[:len(s.elements) -1]
+    s.dirs = s.dirs[:len(s.dirs) -1]
     return nil
 }

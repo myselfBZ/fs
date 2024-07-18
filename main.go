@@ -12,7 +12,9 @@ import (
 var (
 	root       = entries.RootDir()
 	currentDir = root
-	paths      = []*entries.Directory{root}
+	paths      = &Stack{
+        elements: make([]string, 128),
+    }
 )
 
 func main() {
