@@ -13,7 +13,7 @@ var (
 	root       = entries.RootDir()
 	currentDir = root
 	paths      = &Stack{
-        elements: make([]string, 128),
+        dirs: make([]entries.Directory, 128),
     }
 )
 

@@ -41,6 +41,7 @@ func changeDir(path string) {
                 fmt.Println(DirDoesntExist)
                 return 
             } 
+            paths.Append(*dir)
             currentDir = dir
             
         }
